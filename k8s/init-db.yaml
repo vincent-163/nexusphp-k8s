@@ -1,0 +1,15 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nexusphp-mysql-init
+spec:
+  template:
+    spec:
+      containers:
+      - name: nexusphp-mysql-init
+        image: nexusphp-mysql-init
+        imagePullPolicy: Never
+        command: ["/bin/sh", "-c", "cat /init.sql /dbstructure.sql | mysql -uroot -proot -hmysql"]
+      restartPolicy: Never
+  backoffLimit: 4
